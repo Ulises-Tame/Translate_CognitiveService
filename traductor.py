@@ -1,27 +1,37 @@
-import requests
-from pprint import pprint
- 
-skey = '80f6c7351ed248adbee8201987b423ef'
-endpoint = 'https://westus.api.cognitive.microsoft.com/'
-sentiment_url = endpoint + "/text/analytics/v3.0/sentiment"
+import requests, uuid, json
 
-documents ={
-    "documents": 
-        {
-            "id": "1",
-            "language": "es",
-            "text": "Sé que estás en el cielo sonriendo, mientras nos observas cuando rezamos por ti."
-        }
+# Add your subscription key and endpoint
+subscription_key = "YOUR_SUBSCRIPTION_KEY"
+endpoint = "https://api.cognitive.microsofttranslator.com"
+
+# Add your location, also known as region. The default is global.
+# This is required if using a Cognitive Services resource.
+location = "YOUR_RESOURCE_LOCATION"
+
+path = '/translate'
+constructed_url = endpoint + path
+
+params = {
+    'api-version': '3.0',
+    'to': ['es']
 }
- 
-_headers = {"Ocp-Apim-Subscription-Key": skey}
-_response=requests.post(sentiment_url, headers=_headers, json=documents)
-sentimientos = _response.json()
- 
-pprint(sentimientos)
- 
-print(sentimientos['documents'])
+constructed_url = endpoint + path
 
-print(sentimiento['documents'][0]['sentences'][0]['sentiment'])
+headers = {
+    'Ocp-Apim-Subscription-Key': subscription_key,
+    'Ocp-Apim-Subscription-Region': location,
+    'Content-type': 'application/json',
+    'X-ClientTraceId': str(uuid.uuid4())
+}
+
+# You can pass more than one object in body.
+body = [{
+    'text': 'Hello World!'
+}]
+
+request = requests.post(constructed_url, params=params, headers=headers, json=body)
+response = request.json()
+
+print(json.dumps(response, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': ')))
 
 
