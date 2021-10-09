@@ -1,9 +1,10 @@
 import requests
 from pprint import pprint
  
-skey = '80f6c7351ed248adbee8201987b423ef'
-endpoint = 'https://westus.api.cognitive.microsoft.com/'
-sentiment_url = endpoint + "/text/analytics/v3.0/sentiment"
+skey = 'a8a3e891ba0c401abaead8bac1b38182'
+##
+endpoint = 'https://eastus.api.cognitive.microsoft.com/'
+sentiment_url = endpoint + "/translate-cs-ufgt.cognitiveservices.azure.com/"
 
 documents ={
     "documents": 
